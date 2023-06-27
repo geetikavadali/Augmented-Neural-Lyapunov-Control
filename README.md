@@ -5,15 +5,15 @@ This repository contains the code for the paper:
 ## Scope of the code
 ANCL is a software framework to **automatically** synthesise:  
 1. a **stabilising controller** for a desired equilibrium of a nonlinear system;  
-2. a **Lyapunov function** to certify its stability.    
+2. a **Control Lyapunov Function**(CLF) to certify its stability.    
   
-The code is based on a loop between a *Learner* and a *Falsifier*. The Learner trains a control and a Lyapunov function, both represented by a Neural Network.    
-The Falsifier takes candidate Lyapunov Functions and verifies whether they satisfy the Lyapunov conditions over the desired domain (over the Reals). If the conditions are not satisfied, the Falsifier returns several points (denoted as counterexample) where there conditions are violated. If that occurrs, the new counterexamples are added to the dataset and the learning procedure is iterated.  
+The code is based on a loop between a *Learner* and a *Falsifier*. The Learner trains both a control and a Lyapunov function, each represented by a Neural Network.    
+The Falsifier verifies whether the candidate CLFs satisfy the theoretical Lyapunov conditions within a specified domain (over the Reals). If the conditions are not satisfied, the Falsifier returns several points (denoted as counterexample) where the Lyapunov conditions are violated. Next, the new counterexamples are added to the dataset and the learning procedure is iterated.  
 A schematic of the learning architecture is hereby illustrated:  
-<img src="https://github.com/dave-ai/test_deplo1/blob/master/documentation/images/ANN_architecture.png" width=50% height=20%>
-TODO link
+<img src="https://github.com/grande_dev/Augmented-Neural-Lyapunov-Control/blob/master/documentation/images/ANN_architecture.png" width=50% height=20%>
 
-This repository was initially branched from the original **Neural Lyapunov Control** (NLC):  
+
+This repository was initially forked from the original **Neural Lyapunov Control** (NLC):  
 - [Neural-Lyapunov-Control](https://github.com/YaChienChang/Neural-Lyapunov-Control)  
   
 With respect to the NLC, the key ANLC upgrades consist of:
@@ -23,7 +23,7 @@ With respect to the NLC, the key ANLC upgrades consist of:
 ## Installation
 
 The code was tested on OS: Linux Ubuntu 20.04
-Three methods are provided to install the dependencies required to run the ANLC code:
+Three methods are hereby provided to install the following main dependencies:
 
 - Python3.7 or Python3.9
 - [dReal4: v4.21.6.2](https://github.com/dreal/dreal4)
@@ -32,10 +32,10 @@ Three methods are provided to install the dependencies required to run the ANLC 
   
 First, clone the repository:
 ```
-git clone https://github.com/dave-ai/test_deplo1.git
-cd test_deplo1
+git clone https://github.com/grande-dev/Augmented-Neural-Lyapunov-Control.git
+cd Augmented-Neural-Lyapunov-Control
 ```
-TODO link and folder
+
   
 ### Approach 1: install the requirements at system level (not recommended)
 If Python3.7 is available on your machine, you can install the required packages at system level with:
@@ -89,9 +89,8 @@ cd code
 python3 sim_campaign_3d_Lorenz_main.py  
 ```
 Upon completion, you should expect to find in the 'code/sim_campaign/results/campaign_1475/0' (TODO check campaign number) figures such as:   
-<img src="https://github.com/dave-ai/test_deplo1/blob/master/documentation/images/Lyapunov_function_example.png" width=50% height=20%>
-TODO link
-
+<img src="https://github.com/grande-dev/Augmented-Neural-Lyapunov-Control/blob/master/documentation/images/Lyapunov_function_example.png" width=50% height=20%>
+  
  
 ## How to use me
 To test the synthesis of control and Lyapunov functions with your own dynamics, a step-by-step example is illustrated in the ![wiki_example](./documentation/WIKI.md) file.
