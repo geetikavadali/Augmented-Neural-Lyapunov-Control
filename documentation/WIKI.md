@@ -29,8 +29,8 @@ To use the framework, the following steps are recommended:
 5. The *procedure stops* when no counterexample is found or when a timeout is hit.  
   
 The overall code architecture can be visualised as:
-<img src="https://github.com/dave-ai/test_deplo1/blob/master/documentation/images/Code_modules.png" width=70% height=70%>
-TODO link
+<img src="https://github.com/grande-dev/Augmented-Neural-Lyapunov-Control/blob/master/documentation/images/Code_modules.png" width=70% height=70%>
+
 
 
 ### Step-by-step example
