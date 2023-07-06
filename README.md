@@ -88,7 +88,7 @@ These commands will run the training for the *controlled Lorenz system*:
 cd code
 python3 sim_campaign_3d_Lorenz_main.py  
 ```
-Upon completion, you should expect to find in the 'code/sim_campaign/results/campaign_1475/0' (TODO check campaign number) figures such as:   
+Upon completion, you should expect to find in the 'code/sim_campaign/results/campaign_1475/0' figures such as:   
 <img src="https://github.com/grande-dev/Augmented-Neural-Lyapunov-Control/blob/master/documentation/images/Lyapunov_function_example.png" width=50% height=20%>
   
  
@@ -100,8 +100,8 @@ To test the synthesis of control and Lyapunov functions with your own dynamics, 
 The results reported in the reference publication [1] are reported in the subdirectory:
 ![/results_publication](./results_publication)
 and logged in the file:
- ![log_results](./results_publication/README_log_results.md)
-To reproduce the results, the following scripts should be run:
+ ![log_results](./results_publication/README_log_results.md).  
+To reproduce the results, the following scripts can be run:
 1. NLC results:  ![NLC-inverted pendulum main](./code/sim_campaign_NLC_main.py) (requires Python3.7)
 2. ANLC results:  ![ANLC-inverted pendulum main](./code/sim_campaign_ANLC_main.py) 
 3. ANLC Lorenz system results: ![ANLC-Lorenz main](./code/sim_campaign_3d_Lorenz_main.py) 
