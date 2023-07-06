@@ -1,0 +1,42 @@
+Run of the Inverted Pendulum system (NLC).
+Convergence reached = True
+
+Seed = 1
+LYAPUNOV ANN: 
+layer 1 dim. = 6
+layer 2 activation f = tanh 
+layer 1 has bias = True 
+layer 2 activation f = tanh 
+layer 2 has bias = True 
+
+
+LEARNER: 
+Learning rate = 0.01
+Initial control weights = tensor([[-23.5864,  -5.3142]])
+Final control weights = tensor([[-23.4563,  -5.3776]])
+TRAINING: 
+max_loop_number = 1
+max_epochs_per_loop = 1000
+Initial dataset dimension = 500
+Final dataset dimension = 780
+Target ROA = 0.1 - 6
+Loss function with tuning term = True
+
+
+FALSIFIER: 
+epsilon = 0.01
+delta = 1e-06
+Falsifier interval (mu) = 10
+zeta_SMT = 10
+
+
+RESULTS: 
+Falsifier Time Out = False
+Learner Time Out = False
+Time elapsed: 
+seconds = 33.15984583500176
+Falsifier time [']: 1.633297546988615
+Training iterations completed = 1
+Training epochs (last iteration) = 281
+
+

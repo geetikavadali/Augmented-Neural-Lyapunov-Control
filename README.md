@@ -22,7 +22,7 @@ With respect to the NLC, the key ANLC upgrades consist of:
   
 ## Installation
 
-The code was tested on OS: Linux Ubuntu 20.04
+The code was tested on OS: Linux Ubuntu 20.04  
 Three methods are hereby provided to install the following main dependencies:
 
 - Python3.7 or Python3.9

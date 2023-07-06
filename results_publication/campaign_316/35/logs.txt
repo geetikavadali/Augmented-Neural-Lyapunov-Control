@@ -1,0 +1,81 @@
+Run of the control_2DOF_inv_pend_ANLC_campaign system.
+Convergence reached = False
+
+TRAINING PARAMS: 
+Seed = 36
+max_loop_number = 1
+max_epochs_per_loop = 1000
+Initial dataset dimension = 500
+Final dataset dimension = 800
+Using a sliding window = True
+Maximum dataset dimension (if using sliding wind) = 800
+Re-initialise dataset = False
+
+
+LYAPUNOV ANN: 
+layer 1 dim. = 10
+layer 1 act. f. = linear
+layer 1 has bias = False
+layer 2 dim. = 10
+layer 2 has act. f. = pow2
+layer 2 has bias = False
+layer 3 dim. = 1
+layer 3 has act. f. = linear
+layer 3 has bias = False
+
+
+CONTROL ANN: 
+Use linear control = True
+If nonlinear control law is used, then:
+dim. layer 1 = 2
+dim layer 2 = 2
+use bias layer 1 = False
+use bias layer 2 = False
+
+
+LEARNER: 
+Learning rate Lyap. = 0.01
+Learning rate control = 1.0
+
+LYAPUNOV RISK:
+alpha_1 (Weight V) = 1.0
+alpha_2 (Weight V_dot) = 1.0
+alpha_3 (Weight V0) = 1.0
+alpha_4 (Weight V tuning) = 0.0
+alpha_5(overall weight) = 1.0
+alpha_roa (ROA tuning) = 6.0
+
+
+TRAINING: 
+ANN control initialised (LQR) = True
+ANN control initial weights = tensor([[-23.5864,  -5.3142]])
+ANN control final weights = tensor([[-17.3045,  -6.6952]])
+
+
+FALSIFIER (SMT): 
+Epsilon = 0.0
+Falsifier domain = 0.1 - 6.0
+config.precision = 1e-06
+mu (falsifier callback interval) = 50
+zeta_SMT (SMT CE point cloud) = 200
+
+DISCRETE FALSIFIER (DF): 
+zeta_D (DF CEs added at each callback) = 300
+use adaptive grid = True
+maximum grid points = 1000
+Final grid points = 500
+
+
+RESULTS: 
+Falsifier Time Out = True
+Learner Time Out = False
+Time elapsed: 
+seconds = 439.1980766399993
+minutes = 7.319967943999988
+hours = 0.12199946573333313
+Falsifier time [']: 0.01015830049999143
+Falsifier time [%]: 0.13877520472364854
+Training iterations completed = 1
+Training epochs (last iteration) = 251
+
+
