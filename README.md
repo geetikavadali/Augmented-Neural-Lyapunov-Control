@@ -1,6 +1,8 @@
 # Augmented-Neural-Lyapunov-Control
 This repository contains the code for the paper:  
 **Augmented Neural Lyapunov Control** (ANLC)  
+The work can be read open-access on the [IEEE webpage](https://ieeexplore.ieee.org/document/10171339).  
+  
   
 ## Scope of the code
 ANCL is a software framework to **automatically** synthesise:  
@@ -32,14 +34,18 @@ Instructions on installation are available within the ![README](./ANLC_v1/README
 
 
 ## Reference  
-The code of this repository can be cited with the following BibTeX entry:  
+The article can be accessed open-access on the [IEEE webpage](https://ieeexplore.ieee.org/document/10171339/).
+  
+This work can be cited with the following BibTeX entry:  
 
 ```bibtex
 @article{grande2023augmented,
   title={Augmented Neural Lyapunov Control},
-  author={Davide Grande, Andrea Peruffo, Enrico Anderlini, Georgios Salavasidis},
+  author={Grande, Davide and Peruffo, Andrea and Anderlini, Enrico and Salavasidis, Georgios},
   journal={IEEE Access},
-  year={2023}
+  year={2023},
+  publisher={IEEE},
+  doi={10.1109/ACCESS.2023.3291349}
 }
 ``` 
 
