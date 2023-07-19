@@ -13,7 +13,7 @@ ANCL is a software framework to **automatically** synthesise:
 The code is based on a loop between a *Learner* and a *Falsifier*. Starting from a finite set of state-space samples, the *Learner* trains two Neural Networks, one representing a control law and the other a CLF. In parallel, the *Falsifier* is tasked with verifying whether the candidate CLF satisfies the theoretical Lyapunov conditions within a domain of Reals. If the conditions are satisifed, the learning is halted and the resulting control law and CLF are returned. On the contrary, if the conditions are not satisfied, the Falsifier returns a set of points (denoted as counterexample) where the Lyapunov conditions are violated. These points are added to the dataset and the learning process is further iterated.    
    
 A schematic of the learning architecture is hereby illustrated:  
-<img src="https://github.com/grande-dev/Augmented-Neural-Lyapunov-Control/blob/master/ANLC_v1/documentation/images/learning_scheme.png" width=50% height=20%>
+<img src="https://github.com/grande-dev/Augmented-Neural-Lyapunov-Control/blob/master/ANLC_v1/documentation/images/learning_scheme.png" width=100% height=100%>
 
 
 This repository was initially branched from the original **Neural Lyapunov Control** (NLC):  
