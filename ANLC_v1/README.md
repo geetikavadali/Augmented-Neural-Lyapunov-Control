@@ -144,6 +144,8 @@ This work can be cited with the following BibTeX entry:
   title={Augmented Neural Lyapunov Control},
   author={Grande, Davide and Peruffo, Andrea and Anderlini, Enrico and Salavasidis, Georgios},
   journal={IEEE Access},
+  volume={11},
+  pages={67979--67986},
   year={2023},
   publisher={IEEE},
   doi={10.1109/ACCESS.2023.3291349}

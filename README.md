@@ -21,7 +21,7 @@ This repository was initially branched from the original **Neural Lyapunov Contr
   
 With respect to the NLC, the key ANLC upgrades consist of:
 - [x] Option to synthesised both linear and nonlinear control laws;  
-- [x] Control functions (linear and nonlinear) synthesised without initialising the control weights.
+- [x] Control functions (linear and nonlinear) synthesised without initialising the control weights;
 - [x] Option to stabilise generic equilibria (not necessarily the origin).  
 
 ## Repository structure  
@@ -55,6 +55,8 @@ This work can be cited with the following BibTeX entry:
   title={Augmented Neural Lyapunov Control},
   author={Grande, Davide and Peruffo, Andrea and Anderlini, Enrico and Salavasidis, Georgios},
   journal={IEEE Access},
+  volume={11},
+  pages={67979--67986},
   year={2023},
   publisher={IEEE},
   doi={10.1109/ACCESS.2023.3291349}
