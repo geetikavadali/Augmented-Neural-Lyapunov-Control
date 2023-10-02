@@ -47,7 +47,7 @@ config.use_polytope_in_forall = True
 config.precision = 1e-6  # delta-precision
 
 # Setting all the parameters defined in the configuration file
-parameters = config_file.set_params()
+parameters, dyn_sys_params = config_file.set_params()
 
 # Initialising directories (this prevents overwriting old results)
 # Generating result (top) directory
@@ -134,21 +134,8 @@ saving_stat.gen_stat(parameters,
                      to_fals_check, count_conv, final_dir_campaign)
 
 
-
 # Saving dynamic parameters
-dyn_sys_params = config_file.set_dyn_sys_params()
+f = open(final_dir_campaign + "/dyn_system_params.txt",'w')
+f.write(str(dyn_sys_params))
+f.close()
 
-dynamic_param_save = []
-for att in vars(dyn_sys_params):
-    dynamic_param_save.append([att, getattr(dyn_sys_params,att)])
-np.savetxt(final_dir_campaign + "/dyn_system_params.txt", dynamic_param_save, fmt="%s")
-
-
-
-# Saving dynamic parameters
-dyn_sys_params = config_file.set_dyn_sys_params()
-
-dynamic_param_save = []
-for att in vars(dyn_sys_params):
-    dynamic_param_save.append([att, getattr(dyn_sys_params,att)])
-np.savetxt(final_dir_campaign + "/dyn_system_params.txt", dynamic_param_save, fmt="%s")

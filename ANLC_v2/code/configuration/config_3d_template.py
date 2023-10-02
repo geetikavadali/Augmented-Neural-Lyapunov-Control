@@ -133,18 +133,5 @@ def set_params():
                   **postproc_params,
                   **closed_loop_params}
 
-    return parameters
+    return parameters, dyn_sys_params
 
-
-class dyn_sys_params():
-    # A generic class to store the dynamics parameters
-    pass
-
-def set_dyn_sys_params():
-
-    # Parameters specific to the dynamic system
-    dyn_sys_params.sigma = 10.  
-    dyn_sys_params.b = 8/3
-    dyn_sys_params.r = 28.
-
-    return dyn_sys_params
