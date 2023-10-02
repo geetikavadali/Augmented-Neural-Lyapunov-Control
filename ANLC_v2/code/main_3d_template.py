@@ -72,7 +72,7 @@ try:
 
 except OSError:
     print(f"\nRun result directory: \n{final_dir_campaign} already existing!\n")
-    logging.error("\n\nERROR: Simulation campaign not started as you old results would be overwritten.")
+    logging.error("\n\nERROR: Simulation campaign not started as your old results would be overwritten.")
     print("\nPlease update the value of ''parameters['campaign_run']'' first (in the configuration file)!")
     sys.exit()
 else:
