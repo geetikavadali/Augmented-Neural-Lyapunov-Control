@@ -3,7 +3,7 @@
 
 "I have a 3-dimensional system that I want to control, how can I set the code up?"
 
-This tutorial will guide you through the 6 steps encompassing all the what you need to start the synthesis of your control functions.
+This tutorial will guide you through the 6 steps encompassing what you need to start the synthesis of your control functions.
 
 Let us consider the following system:
 

@@ -21,7 +21,7 @@ def set_params():
         'init_seed': 1,        # initial campaign seed
         'campaign_run': 1500,  # number of the run.
                                # The results will be saved in /results/campaign_'campaign_run'
-        'tot_runs': 2,        # total number of runs of the campaigns (each one with a different seed)
+        'tot_runs': 10,        # total number of runs of the campaigns (each one with a different seed)
         'max_loop_number': 1,  # number of loops per run (>1 means that the weights will be re-initialised).
                                 # default value = 1.
         'max_iters': 1000,     # number of maximum learning iterations per run
