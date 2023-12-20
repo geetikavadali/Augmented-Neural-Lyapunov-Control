@@ -44,6 +44,11 @@ Lyapunov function example |  Lie derivative function example
 ## Installation  
 Instructions on installation are available within the ![INSTALLATION](./ANLC_v2/INSTALLATION.md/) file.    
 
+  
+## Contacts
+The authors can be contacted for feedback, clarifications or requests of support at:  
+`grande.rdev@gmail.com`
+  
 
 ## Reference  
 The article can be accessed open-access on the [IEEE webpage](https://ieeexplore.ieee.org/document/10171339/).
