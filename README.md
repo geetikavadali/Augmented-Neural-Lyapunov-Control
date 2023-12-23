@@ -40,6 +40,13 @@ Lyapunov function example |  Lie derivative function example
 :-------------------------:|:-------------------------:
 <img src="https://github.com/grande-dev/Augmented-Neural-Lyapunov-Control/blob/master/ANLC_v2/documentation/images/V_3D.gif"> | <img src="https://github.com/grande-dev/Augmented-Neural-Lyapunov-Control/blob/master/ANLC_v2/documentation/images/Lie_der_3D.gif">
   
+
+Hereby an example of how a CLF and the corresponding Lie derivative are updated over the training iterations:
+
+CLF evolution |  Lie derivative function evolution                    
+:-------------------------:|:-------------------------:
+<img src="https://github.com/grande-dev/Augmented-Neural-Lyapunov-Control/blob/master/ANLC_v2/documentation/images/CLF_training.gif"> | <img src="https://github.com/grande-dev/Augmented-Neural-Lyapunov-Control/blob/master/ANLC_v2/documentation/images/Vdot_training.gif">
+  
   
 ## Installation  
 Instructions on installation are available within the ![INSTALLATION](./ANLC_v2/INSTALLATION.md/) file.    

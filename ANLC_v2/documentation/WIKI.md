@@ -92,7 +92,7 @@ The files can be modified as follows:
 	```python
 		dyn_sys_params = {
 			'alpha': 2.1,
-			'beta': 5.3
+			'beta': 5.3,
 		}
 	```
 
@@ -151,7 +151,7 @@ The files can be modified as follows:
 		# Parameters for learner
 		learner_params = {
 				'N': 500,                      # initial dataset size
-				'N_max': 1000                  # maximum dataset size (if using a sliding window)
+				'N_max': 1000,                 # maximum dataset size (if using a sliding window)
 				...
 			}
 	```  
