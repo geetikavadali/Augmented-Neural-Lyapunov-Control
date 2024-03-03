@@ -6,7 +6,7 @@ The work can be read open-access on the [IEEE webpage](https://ieeexplore.ieee.o
   
   
 ## Scope of the code
-ANCL is a software framework to **automatically** synthesise:  
+ANLC is a software framework to **automatically** synthesise:  
 1. a **stabilising controller** for a desired equilibrium of a nonlinear system;  
 2. a **Control Lyapunov Function** (CLF) to certify its stability.    
   
