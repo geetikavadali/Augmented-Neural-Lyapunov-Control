@@ -50,8 +50,12 @@ CLF evolution |  Lie derivative function evolution
   
 ## Installation  
 Instructions on installation are available within the ![INSTALLATION](./ANLC_v2/INSTALLATION.md/) file.    
-
   
+## What is next?    
+- [ ] An extension to the software tool to synthesise control laws including actuator saturation will be released.  
+- [ ] Utilities to compute the Region Of Attraction of the desired equilibrium for 2-dimensional systems will be released.   
+  
+
 ## Contacts
 The authors can be contacted for feedback, clarifications or requests of support at:  
 `grande.rdev@gmail.com`
