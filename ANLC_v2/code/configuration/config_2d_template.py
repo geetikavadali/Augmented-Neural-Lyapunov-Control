@@ -6,7 +6,7 @@ Created on Sat May  6 13:39:58 2023
 @authors: Davide Grande
           Andrea Peruffo
 
-A function collecting the parameters of the training.
+A function collecting the parameters for the synthesis of the CLF.
 
 """
 
@@ -21,10 +21,10 @@ def set_params():
         'init_seed': 1,        # initial campaign seed
         'campaign_run': 1500,  # number of the run.
                                # The results will be saved in /results/campaign_'campaign_run'
-        'tot_runs': 10,        # total number of runs of the campaigns (each one with a different seed)
+        'tot_runs': 5,        # total number of runs of the campaigns (each one with a different seed)
         'max_loop_number': 1,  # number of loops per run (>1 means that the weights will be re-initialised).
                                 # default value = 1.
-        'max_iters': 1000,     # number of maximum learning iterations per run
+        'max_iters': 3000,     # number of maximum learning iterations per run
         'system_name': "test_2d_pendulum",  # name of the systems to be controlled
         'x_star': torch.tensor([0.0, 0.0]),  # target equilibrium point
     }        
@@ -34,8 +34,8 @@ def set_params():
         'N': 500,  # initial dataset size
         'N_max': 1000,  # maximum dataset size (if using a sliding window)
         'sliding_window': True,  # use sliding window
-        'learning_rate': 0.01,  # learning rate Lyapunov branch
-        'learning_rate_c': 1.0,  # learning rate control branch
+        'learning_rate': 0.1,  # learning rate Lyapunov branch
+        'learning_rate_c': 0.1,  # learning rate control branch
         'use_scheduler': True,
         # use LR scheduler to allow dynamic learning rate reducing based on some validation measurements
         'sched_T': 300,  # cosine annealing scheduler period
@@ -61,6 +61,9 @@ def set_params():
         'size_ctrl_layers': [50, 1],  # CAVEAT: the last entry is the number of control actions!
         'ctrl_bias': [True, False],
         'ctrl_activations': ['tanh', 'linear'],
+        'use_saturation': False,        # use saturations in the control law.
+        'ctrl_sat': [18.3],             # actuator saturation values: 
+                                        # this vector needs to be as long as 'size_ctrl_layers[-1]' (same size as the control vector).
     }
 
     falsifier_params = {
@@ -84,7 +87,7 @@ def set_params():
         'alpha_2': 1.0,  # weight V_dot
         'alpha_3': 1.0,  # weight V0
         'alpha_4': 0.0,  # weight tuning term V
-        'alpha_roa': falsifier_params['gamma_overbar'],  # Lyapunov function steepness
+        'alpha_roa': 0.1*falsifier_params['gamma_overbar'],  # Lyapunov function steepness
         'alpha_5': 1.0,  # general scaling factor    
     }
 

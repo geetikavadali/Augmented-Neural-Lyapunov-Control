@@ -4,6 +4,7 @@
 Created on Wed Jul 26 19:02:40 2023
 
 @authors: Andrea Peruffo
+          Davide Grande
 """
 
 import dreal
@@ -66,6 +67,13 @@ def translator(parameters,
         c = chat
         # raise ValueError('Not Implemented translator for linear control')
 
+        # Implementing saturation
+        if parameters['use_saturation']:
+            c2 = np.atleast_2d([dreal.tanh(v[0]) for v in chat]).T
+            for jC in range(chat.size):
+                c[jC] = parameters['ctrl_sat'][jC]*c2[jC]
+        else:
+            c = c
 
     else:
         # nonlinear control network
@@ -95,6 +103,14 @@ def translator(parameters,
                 c = chat
             else:
                 raise ValueError(f'Not Implemented Control Activation Function {model.ctrl_activs[idx]}.')
+
+        # Implementing saturation
+        if parameters['use_saturation']:
+            c2 = np.atleast_2d([dreal.tanh(v[0]) for v in chat]).T
+            for jC in range(chat.size):
+                c[jC] = parameters['ctrl_sat'][jC]*c2[jC]
+        else:
+            c = c
 
     # define control actions as a list for compatibility with f_symb symbolic function
     u = [v[0] for v in c]

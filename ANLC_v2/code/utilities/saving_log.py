@@ -52,6 +52,9 @@ def gen_log(found_lyap_f,
                      "CONTROL ANN: \n" +
                      f"Use linear control = {parameters['use_lin_ctr']}\n" + 
                      f"Linear control has bias = {parameters['lin_contr_bias']}\n" +
+                     f"Linear control initialised = {parameters['control_initialised']}\n" +
+                     f"use_saturation = {parameters['use_saturation']}\n" +
+                     f"ctrl_sat = {parameters['ctrl_sat']}\n" +
                      "If nonlinear control law is used, then:\n" + 
                      f"layers size = {parameters['size_ctrl_layers']}\n" +
                      f"bias = {parameters['ctrl_bias']}\n" +

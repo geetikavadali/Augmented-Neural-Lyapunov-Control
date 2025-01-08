@@ -36,6 +36,8 @@ class Net(torch.nn.Module):
         self.ctrl_bias = parameters['ctrl_bias']  # list of booleans
         self.lin_contr_bias = parameters['lin_contr_bias']
         self.control_initialised = parameters['control_initialised']
+        self.use_saturation = parameters['use_saturation']
+        self.ctrl_sat = parameters['ctrl_sat']
 
         ## Lyapunov branch
         k = 1
@@ -113,6 +115,10 @@ class Net(torch.nn.Module):
                 act_j = parameters['size_ctrl_layers'][j]
                 print(f"size_{j+1} = {act_j}")
             
+        if parameters['use_saturation']:
+            print("Control function with saturated output.")
+
+
         print('============================================================\n')
 
 
@@ -140,7 +146,12 @@ class Net(torch.nn.Module):
 
         # Control ANN
         if self.use_lin_ctr:
-            u = self.control(x)
+            u_lin = self.control(x)
+            if self.use_saturation:
+                u = torch.tensor(self.ctrl_sat)*torch.tanh(u_lin)
+            else:
+                u = u_lin
+
         else:
             # nonlinear control
             u = x.detach().clone()
@@ -157,7 +168,9 @@ class Net(torch.nn.Module):
                     u = uhat
                 else:
                     raise ValueError(f'Not Implemented Activation Function {self.ctrl_activs[idx]}.')
-        
+            if self.use_saturation:
+                u = torch.tensor(self.ctrl_sat)*torch.tanh(u)
+
         return V, u
 
 
@@ -166,28 +179,13 @@ class Net(torch.nn.Module):
         # act_fun_tanh = torch.nn.Tanh()
         sfpl = torch.nn.Softplus(beta=self.beta_sfpl, threshold=50)
 
-        # # Lyapunov ANN
-        # z = x.detach().clone()
-        # for idx in range(len(self.size_layers)):
-        #     # linear pass
-        #     zhat = self.layers[idx](z)
-        #     # activation
-        #     if self.activs[idx] == 'tanh':
-        #         z = torch.tanh(zhat)
-        #     elif self.activs[idx] == 'pow2':
-        #         z = torch.pow(zhat, 2)
-        #     elif self.activs[idx] == 'sfpl':
-        #         z = sfpl(zhat)
-        #     elif self.activs[idx] == 'linear':
-        #         z = zhat
-        #     else:
-        #         raise ValueError(f'Not Implemented Activation Function {self.activs[idx]}.')
-        
-        # V = z
-
         # Control ANN
         if self.use_lin_ctr:
-            u = self.control(x)
+            u_lin = self.control(x)
+            if self.use_saturation:
+                u = torch.tensor(self.ctrl_sat)*torch.tanh(u_lin)
+            else:
+                u = u_lin
         else:
             # nonlinear control
             u = x.detach().clone()
@@ -204,6 +202,8 @@ class Net(torch.nn.Module):
                     u = uhat
                 else:
                     raise ValueError(f'Not Implemented Activation Function {self.ctrl_activs[idx]}.')
+            if self.use_saturation:
+                u = torch.tensor(self.ctrl_sat)*torch.tanh(u)
 
         xdot = f_value(x, u, parameters)
         V, Vdot, circle = self.compute_derivative_net(x, xdot)

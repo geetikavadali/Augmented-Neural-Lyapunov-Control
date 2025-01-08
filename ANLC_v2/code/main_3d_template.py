@@ -44,7 +44,7 @@ matplotlib.rcParams['font.family'] = 'STIXGeneral'
 # dReal configuration
 config = dreal.Config()
 config.use_polytope_in_forall = True
-config.precision = 1e-6  # delta-precision
+config.precision = 1e-4  # delta-precision
 
 # Setting all the parameters defined in the configuration file
 parameters, dyn_sys_params = config_file.set_params()

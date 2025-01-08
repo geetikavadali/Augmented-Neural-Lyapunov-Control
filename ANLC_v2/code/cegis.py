@@ -200,8 +200,8 @@ def cegis(parameters, seed_,
             Lyap_risk_ELR.backward()
             optimizer.step()
             if parameters['use_scheduler']:
-            	scheduler.step()
-            
+                scheduler.step()
+
             stop_ = timeit.default_timer()
             step_time = step_time + stop_ - start_
             stop_optim = timeit.default_timer()
@@ -245,8 +245,7 @@ def cegis(parameters, seed_,
 
         if out_iters == parameters['max_loop_number'] and not found_lyap_f:
             print('============================================================')
-            print('Lyapunov function NOT FOUND in the current training run')
-            print('of iterations.')
+            print('Lyapunov function NOT FOUND within the current training attempt.')
         print('============================================================')
 
     if not found_lyap_f and not to_fals:
