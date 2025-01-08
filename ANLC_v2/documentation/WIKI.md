@@ -65,6 +65,8 @@ The files can be modified as follows:
 
 			return x_dot
 	```
+
+	In the system dynamics, `x_star` represents the value of the equilibrium to be stabilised. Do not modify the lines related to `x1_shift`, `x2_shift`, etc.  
 	  
 	2. Similarly, the symbolic dynamics for the dReal verification is defined in `def f_symb()`.  
   	```python
@@ -182,12 +184,16 @@ The files can be modified as follows:
 			'size_ctrl_layers': [50, 3],  # CAVEAT: the last entry is the number of control actions!
 			'ctrl_bias': [True, False],
 			'ctrl_activations': ['tanh', 'linear'],
+			'use_saturation': False,        	# use saturations in the control law.
+			'ctrl_sat': [18.3, 11.2, 4.6],		# actuator saturation values:
+												# this vector needs to be as long as 'size_ctrl_layers[-1]' (same size as the control vector).
     	}
 	```  
 	This configuration defines a linear control ANN, with the control gain initialised to the value defined in `init_control`. If `control_initialised` was set to `False` instead, random initial weight would be seleced.  
 	If a nonlinear control law is to be used instead, set `use_lin_ctr=False`; the nonlinear control law weight is by default initialised randomly.  
 	The size of the control gain (both linear and nonlinear) is defined by the last entry of `size_ctrl_layers`; with the choice above, three control signals will be output.  
-
+	If you intend to use a saturated control input, set `use_saturation=True`, and select the corresponding values of the input saturation with `ctrl_sat`.  
+	  
 
 4.  **Set up the configuration conditions for the *Falsifier***:
 	1. Select the SMT domain boundaries and the additional configuration parameters as:
