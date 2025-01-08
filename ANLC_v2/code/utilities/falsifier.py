@@ -101,7 +101,7 @@ def augm_falsifier(parameters, vars_, model, f_symb,
             else:
                 # no CE_SMT is returned hence V_learn is a valid Lyapunov
                 # function
-                print("NO CE_SMT found.")
+                print("\nTraining SUCCESSFUL (no CE found)!")
                 found_lyap_f = True
                 print("\nControl Lyapunov Function synthesised as:")
                 print(V_learn.Expand())

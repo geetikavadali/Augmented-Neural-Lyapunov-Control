@@ -17,11 +17,13 @@ import numpy as np
 import timeit
 import copy
 import os
+import time
 from datetime import datetime
 import torch.nn.functional as F
 from utilities.falsifier import augm_falsifier
 from utilities.utils_processing import postprocessing, init_history_arrays, save_cost_funct, save_lr_values
 from utilities.nn import optimizer_setup
+from utilities.sanity_checks import initial_checks, check_ANN_model
 import logging
 
 ##############################################################################
@@ -85,6 +87,9 @@ def cegis(parameters, seed_,
     if init_historical_data:
         history_arrays = init_history_arrays(parameters, parameters['max_iters']*parameters['max_loop_number'])
 
+    # Sanity check on choice of the configuration parameters
+    warn = initial_checks(parameters)
+
     '''
     Main
     '''
@@ -97,14 +102,11 @@ def cegis(parameters, seed_,
         # Instantiating ANN architecture
         model = Net(parameters, seed_)
 
-        # sanity check for lyapunov params definition
-        # check that parameters have the correct length
-        assert len(model.size_layers) == len(model.lyap_bias)
-        assert len(model.size_layers) == len(model.activs)
-        assert len(model.size_ctrl_layers) == len(model.ctrl_bias)
-        assert len(model.size_ctrl_layers) == len(model.ctrl_activs)
-        assert model.n_input == len(vars_)
-        assert model.size_layers[-1] == 1
+        # Check correct instantiation of the ANN
+        warn_ann = check_ANN_model(model, vars_)
+        if (warn + warn_ann != 0):
+            print("\n\nWARNING: the training will be started, but something is off with your parameters. Please check the WARNING message above for further information.\n\n")
+            time.sleep(3)
 
         i_epoch = 0  # epochs counter
 
@@ -245,7 +247,7 @@ def cegis(parameters, seed_,
 
         if out_iters == parameters['max_loop_number'] and not found_lyap_f:
             print('============================================================')
-            print('Lyapunov function NOT FOUND within the current training attempt.')
+            print('Training unsuccessful: Control Lyapunov Function NOT FOUND within the current training attempt.')
         print('============================================================')
 
     if not found_lyap_f and not to_fals:

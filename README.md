@@ -44,6 +44,7 @@ The repository contains two versions of the code:
 - [x] ![ANLC_v2](./ANLC_v2): v2 is the version actively developed and the one *recommended*. With respect to v1, v2 entails:
 	- [x] Refactored and optimised code;  
 	- [x] Corrected known code issues;    
+  - [x] Included automatic checks and suggestions on parameters setup;      
 	- [x] Option to stabilise generic equilibria (not necessarily the origin);  
 	- [x] Option to synthesise control laws with saturation.  
   

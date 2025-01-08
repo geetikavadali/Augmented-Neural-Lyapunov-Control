@@ -24,7 +24,7 @@ def set_params():
         'tot_runs': 5,        # total number of runs of the campaigns (each one with a different seed)
         'max_loop_number': 1,  # number of loops per run (>1 means that the weights will be re-initialised).
                                 # default value = 1.
-        'max_iters': 3000,     # number of maximum learning iterations per run
+        'max_iters': 1000,     # number of maximum learning iterations per run
         'system_name': "test_2d_pendulum",  # name of the systems to be controlled
         'x_star': torch.tensor([0.0, 0.0]),  # target equilibrium point
     }        
