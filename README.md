@@ -33,7 +33,7 @@ With respect to the NLC, the key ANLC upgrades consist of:
 | Automatic synthesis of *linear* control laws |  :white_check_mark:  | :white_check_mark:   | :white_check_mark:   |
 | Formal certification of the returned solution  |  :white_check_mark: | :white_check_mark:   | :white_check_mark:   |
 | Automatic synthesis of *nonlinear* control laws |  :x:  | :white_check_mark:   | :white_check_mark:   |
-| Control laws synthesed without requiring initialisation  |  :x:  | :white_check_mark:   | :white_check_mark:   |
+| Control laws synthesise without requiring initialisation  |  :x:  | :white_check_mark:   | :white_check_mark:   |
 | Stabilise generic equilibria (not necessarily the origin)  |  :x:  | :x:   | :white_check_mark:   |
 | Control law optionally including input saturation  |  :x:  | :x:   | :white_check_mark:   |
   

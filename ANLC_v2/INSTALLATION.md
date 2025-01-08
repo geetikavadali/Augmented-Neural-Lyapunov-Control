@@ -18,11 +18,13 @@ cd Augmented-Neural-Lyapunov-Control
 ### 1.1) Approach 1: install the requirements at system level (not recommended)
 If Python3.7 is available on your machine, you can install the required packages at system level with:
 ```  
+cd ANLC_v2
 pip3 install -r ./requirements.txt  
 ```
 
 If Python3.9 is available on your machine, you can install the required packages at system level with:
 ```  
+cd ANLC_v2
 pip3 install -r ./requirements_v39.txt  
 ```
 Move to step 2).
