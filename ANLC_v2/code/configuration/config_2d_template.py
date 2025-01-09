@@ -19,7 +19,7 @@ def set_params():
     campaign_params = {
         
         'init_seed': 1,        # initial campaign seed
-        'campaign_run': 1500,  # number of the run.
+        'campaign_run': 2000,  # number of the run.
                                # The results will be saved in /results/campaign_'campaign_run'
         'tot_runs': 5,        # total number of runs of the campaigns (each one with a different seed)
         'max_loop_number': 1,  # number of loops per run (>1 means that the weights will be re-initialised).
@@ -112,7 +112,6 @@ def set_params():
         'plot_4D_': True,  # plot 4D Lyapunov f, Lie derivative and control function
         'n_points_4D': 500,
         'n_points_3D': 100,
-        'compare_first_last_iters': True,  # saving V, Vdot at the first iter to compare with the final res
         'plot_ctr_weights': True,
         'plot_V_weights': True,
         'plot_dataset': True,

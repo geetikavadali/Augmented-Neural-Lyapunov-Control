@@ -142,3 +142,23 @@ def plot(sym_expr, n_points, ball_ub, title_str, plot_title,
     #plt.show()
 
 
+
+def plot_dimG2(expr_eval, a1, a2, n_points, title_str, plot_title, axis_1, axis_2,
+               folder_results_plots, dpi_, parameters, Plot3D):
+
+    # plot 3D-slices of higher dimensionality functions 
+
+    if(n_points>1000):
+        print("CAVEAT: the plot is being generated, please be patient ...")
+
+    # birdeye view (a1, a2)
+    ax = Plot3D(a1, a2, expr_eval, parameters['gamma_overbar'])
+    ax.set_xlabel(f'${axis_1}$')
+    ax.set_ylabel(f'${axis_2}$')
+    ax.set_zlabel(f'{title_str}')
+    if plot_title:
+        plt.title(title_str)
+    name_fig = f'{title_str}'
+    plt.savefig(folder_results_plots + '/' +name_fig + "_" + axis_1 + "_" + axis_2 +".png", dpi=dpi_)
+    plt.close()
+

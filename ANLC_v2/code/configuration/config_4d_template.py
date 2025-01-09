@@ -6,7 +6,7 @@ Created on Sat May  6 13:39:58 2023
 @authors: Davide Grande
           Andrea Peruffo
 
-A function collecting the parameters for the synthesis of the CLF.
+A function collecting the parameters for the synthesis of the CLF for a 4-dimensional system.
 
 """
 
@@ -19,24 +19,24 @@ def set_params():
     campaign_params = {
         
         'init_seed': 10,         # initial campaign seed
-        'campaign_run': 3000,  # number of the run.
+        'campaign_run': 4000,  # number of the run.
                                 # The results will be saved in /results/campaign_'campaign_run'
         'tot_runs': 5,         # total number of runs of the campaigns (each one with a different seed)
         'max_loop_number': 1,  # number of loops per run (>1 means that the weights will be re-initialised).
                                 # default value = 1.
-        'max_iters': 1500,     # number of maximum learning iterations per run
-        'system_name': "test_3d_Controlled_Lorenz",  # name of the systems to be controlled
-        'x_star': torch.tensor([0.0, 0.0, 0.0]),  # target equilibrium point
+        'max_iters': 2000,     # number of maximum learning iterations per run
+        'system_name': "test_4d_system",  # name of the systems to be controlled
+        'x_star': torch.tensor([0.0, 0.0, 0.0, 0.0]),  # target equilibrium point
     }    
 
 
     # Parameters for learner
     learner_params = {
         'N': 500,  # initial dataset size
-        'N_max': 1000,  # maximum dataset size (if using a sliding window)
+        'N_max': 1500,  # maximum dataset size (if using a sliding window)
         'sliding_window': True,  # use sliding window
         'learning_rate': 0.01,  # learning rate Lyapunov branch
-        'learning_rate_c': 0.01,  # learning rate control branch
+        'learning_rate_c': 0.1,  # learning rate control branch
         'use_scheduler': True,
         # use LR scheduler to allow dynamic learning rate reducing based on some validation measurements
         'sched_T': 300,  # cosine annealing scheduler period
@@ -45,7 +45,7 @@ def set_params():
 
     # Parameters for Lyapunov ANN
     lyap_params = {
-        'n_input': 3,        # input dimension (n = n-dimensional system)
+        'n_input': 4,        # input dimension (n = n-dimensional system)
         'beta_sfpl': 2,      # the higher, the steeper the Softplus, the better approx. sfpl(0) ~= 0
         'clipping_V': True,  # clip weight of Lyapunov ANN
         'size_layers': [10, 10, 1],  # CAVEAT: the last entry needs to be = 1 (this ANN outputs a scalar)!
@@ -55,30 +55,30 @@ def set_params():
 
     # Parameters for control ANN
     control_params = {
-        'use_lin_ctr': False,      # use linear control law  -- defined as 'phi' in the publication
+        'use_lin_ctr': True,      # use linear control law  -- defined as 'phi' in the publication
         'lin_contr_bias': False,  # use bias on linear control layer
         'control_initialised': False,  # initialised control ANN with pre-computed LQR law
         'init_control': torch.tensor([[-23.58639732, -5.31421063]]),  # initial control solution
-        'size_ctrl_layers': [10, 3],  # CAVEAT: the last entry is the number of control actions!
+        'size_ctrl_layers': [15, 4],  # CAVEAT: the last entry is the number of control actions!
         'ctrl_bias': [True, True],
-        'ctrl_activations': ['sfpl', 'linear'],
-        'use_saturation': True,         # use saturations in the control law.
-        'ctrl_sat': [45.1, 28.34, 78.2],  # actuator saturation values: 
+        'ctrl_activations': ['tanh', 'linear'],
+        'use_saturation': False,         # use saturations in the control law.
+        'ctrl_sat': [45.1, 28.34, 78.2, 120.0],  # actuator saturation values: 
                                          # this vector needs to be as long as 'size_ctrl_layers[-1]' (same size as the control vector).
     }
 
     falsifier_params = {
         # a) SMT parameters
         'gamma_underbar': 0.1,  # domain lower boundary
-        'gamma_overbar': 5.0,   # domain upper boundary
-        'zeta_SMT': 200,  # how many points are added to the dataset after a CE box
+        'gamma_overbar': 3.0,   # domain upper boundary
+        'zeta_SMT': 400,  # how many points are added to the dataset after a CE box
                           # is found
         'epsilon': 0.0,   # parameters to further relax the SMT check on the Lie derivative conditions.
                           # default value = 0 (inspect utilities/Functions/CheckLyapunov for further info).
         
         # b) Discrete Falsifier parameters
-        'grid_points': 50,  # sampling size grid
-        'zeta_D': 200,       # how many points are added at each DF callback
+        'grid_points': 25,  # sampling size grid
+        'zeta_D': 600,       # how many points are added at each DF callback
     }
 
 
@@ -88,7 +88,7 @@ def set_params():
         'alpha_2': 1.0,  # weight V_dot
         'alpha_3': 1.0,  # weight V0
         'alpha_4': 1.0,  # weight tuning term V
-        'alpha_roa': 0.1*falsifier_params['gamma_overbar'],  # Lyapunov function steepness
+        'alpha_roa': 10.0*falsifier_params['gamma_overbar'],  # Lyapunov function steepness
         'alpha_5': 1.0,  # general scaling factor    
     }
 

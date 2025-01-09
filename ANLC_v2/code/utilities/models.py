@@ -265,3 +265,61 @@ class ControlledLorenz():
                  x1_shift*x2_shift - b*x3_shift + u_NN2]
 
         return x_dot
+
+
+class System4dTemplate():
+
+    def __init__(self):
+        self.vars_ = [dreal.Variable("x1"), dreal.Variable("x2"), dreal.Variable("x3"), dreal.Variable("x4")]
+
+    @staticmethod
+    def f_torch(x, u, parameters):
+
+        x1, x2, x3, x4 = x[:,0], x[:,1], x[:,2], x[:,3]
+        x1_shift = x1 + parameters['x_star'][0]
+        x2_shift = x2 + parameters['x_star'][1]
+        x3_shift = x3 + parameters['x_star'][2]
+        x4_shift = x4 + parameters['x_star'][3]
+        u_NN0 = u[:,0]
+        u_NN1 = u[:,1]
+        u_NN2 = u[:,2]
+        u_NN3 = u[:,3]
+
+        sigma = parameters['sigma']
+        b = parameters['b']
+        r = parameters['r']
+
+        x_dot = [-sigma*(x1_shift - x2_shift) + u_NN0,
+                 r*x1_shift - x2_shift - x1_shift*x3_shift + u_NN1,
+                 x1_shift * x2_shift - b*x3_shift + u_NN2,
+                 x4_shift**2 + u_NN3]
+
+        x_dot = torch.transpose(torch.stack(x_dot), 0, 1)
+
+        return x_dot
+
+
+    @staticmethod
+    def f_symb(x, u, parameters):
+
+        x1, x2, x3, x4 = x[0], x[1], x[2], x[3]
+        x1_shift = x1 + parameters['x_star'].numpy()[0]
+        x2_shift = x2 + parameters['x_star'].numpy()[1]
+        x3_shift = x3 + parameters['x_star'].numpy()[2]
+        x4_shift = x4 + parameters['x_star'].numpy()[3]
+        u_NN0 = u[0]
+        u_NN1 = u[1]
+        u_NN2 = u[2]
+        u_NN3 = u[3]
+
+        sigma = parameters['sigma']
+        b = parameters['b']
+        r = parameters['r']
+
+
+        x_dot = [-sigma*(x1_shift-x2_shift) + u_NN0, 
+                 r*x1_shift - x2_shift - x1_shift*x3_shift + u_NN1, 
+                 x1_shift*x2_shift - b*x3_shift + u_NN2,
+                 x4_shift**2 + u_NN3]
+
+        return x_dot

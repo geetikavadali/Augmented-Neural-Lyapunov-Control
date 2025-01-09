@@ -22,6 +22,7 @@ import postprocessing.plot_and_save as plot_and_save
 import matplotlib.pyplot as plt
 import postprocessing.plot_2D as plot_2D
 import postprocessing.plot_3D as plot_3D
+import postprocessing.plot_4D as plot_4D
 from matplotlib import cm
 import logging
 
@@ -374,15 +375,13 @@ def plot_3D_functions(final_dir_plots, parameters, name_folder, name_function, s
         plot_3D.plot(sym_function, parameters['n_points_3D'], gamma_overbar, 
                      title, False,
                      folder_loss, parameters['dpi_'], Plot3D) 
-        
-        
-        # if parameters['compare_first_last_iters']:
-        #     iteration_no = 'init'
-        #     title = 'Lyapunov_function_'            
-        #     plot_3D.plot(V_learn0, parameters['n_points_3D'], gamma_overbar, 
-        #                  title, False,
-        #                  final_dir_V, parameters['dpi_'], Plot3D) 
+
     
+    if (parameters['n_input'] == 4):
+
+        title = f"{name_function}"  
+        plot_4D.plot(sym_function, title, False, folder_loss, parameters, Plot3D) 
+
 
 def plot_ann_weight(final_dir_plots, parameters, history_arrays):
     
@@ -528,7 +527,7 @@ def plot_dataset(parameters, folder_results_plots, x_dataset_init, x,
         plt.savefig(folder_ds_plots + '/' + name_fig+".pdf", format='pdf')
         plt.close()
 
-    elif parameters['n_input']==3:
+    elif parameters['n_input']==3 or parameters['n_input']==4:  # TODO: to be implemented separately
         # Plot initial dataset
         fig = plt.figure()
         ax = plt.axes(projection='3d')
@@ -690,6 +689,64 @@ def run_closed_loop_tests(parameters, x_star, final_dir_plots,
                              "]
             np.savetxt(final_dir_ + "test_report.txt", result_report, fmt="%s")
 
+    elif parameters['n_input'] == 4:
+    
+        # Setting up the closed-loop tests
+        initial_x1 = [0.2, 0.2]
+        initial_x2 = [np.deg2rad(-35.0), np.deg2rad(-35.0)]
+        initial_x3 = [np.deg2rad(1.0), np.deg2rad(1.0)]
+        initial_x4 = [0., 0.]
+        desired_x1 = [x_star[0].item(), x_star[0].item()]
+        desired_x2 = [x_star[1].item(), x_star[1].item()]
+        desired_x3 = [x_star[2].item(), x_star[2].item()]
+        desired_x4 = [x_star[3].item(), x_star[3].item()]
+        control_active = [0, 1]
+
+        # Creating closed-loop folder
+        final_dir_test = final_dir_plots + "/closed_loop_tests/"
+        os.mkdir(final_dir_test)
+    
+        for iTest in range(len(initial_x1)):
+            message = "Closed-loop " + str(iTest + 1) + "/" + str(len(initial_x1))
+            print(message)
+    
+            final_dir_ = final_dir_test + "test_#" + str(iTest) + "/"
+            os.mkdir(final_dir_)
+    
+            des_x1 = desired_x1[iTest]
+            des_x2 = desired_x2[iTest]
+            des_x3 = desired_x3[iTest]
+            des_x4 = desired_x4[iTest]
+            init_x1 = initial_x1[iTest]
+            init_x2 = initial_x2[iTest]
+            init_x3 = initial_x3[iTest]
+            init_x4 = initial_x4[iTest]
+            control_active_test = control_active[iTest]
+    
+            # closed-loop test callback
+            cl.closed_loop_system(samples_number, model,
+                                  des_x1, des_x2, des_x3, des_x4,
+                                  control_active_test,
+                                  init_x1, init_x2, init_x3, init_x4,
+                                  parameters,
+                                  final_dir_,
+                                  dynamic_sys,
+                                  gamma_overbar, gamma_underbar)
+    
+            # saving test report
+            result_report = [f"Initial x1 = {init_x1}\
+                             \nInitial x2 = {init_x2}\
+                             \nInitial x3 = {init_x3}\
+                             \nInitial x4 = {init_x4}\
+                             \nDesired x1 = {des_x1}\
+                             \nDesired x2 = {des_x2}\
+                             \nDesired x3 = {des_x3}\
+                             \nDesired x4 = {des_x4}\
+                             \nIs control active = {control_active_test}\
+                             "]
+            np.savetxt(final_dir_ + "test_report.txt", result_report, fmt="%s")
+
+
 
     else:       
         sys_dim = parameters['n_input']
@@ -745,39 +802,16 @@ def postprocessing(final_dir_campaign, i_loop, parameters, x,
                           'Lie_der', lie_derivative_of_V,
                           gamma_overbar)
 
+
     if parameters['plot_u']:
         print("Plotting control function ... ")    
 
-        # Generating result folder
-        try:            
-            final_dir_u = final_dir_plots + "/control_function/"         
-            os.mkdir(final_dir_u)
-        except OSError:
-            logging.error("Creation of the 'Control function result' directory %s failed" % final_dir_u)
-        else:
-            print("'Control function result' directory successfully created as: \n %s \n" % final_dir_u)
-
         contr_out = parameters['size_ctrl_layers'][-1]
-        if parameters['n_input']==2:
-            ctr_input = np.zeros((contr_out, 1)) 
-            for iC in range(contr_out):
-                plot_2D.plot(u_learn[iC], 100, gamma_overbar, 
-                             f'Control function {iC}', False,
-                             final_dir_u, parameters['dpi_'], Plot3D)
+        for iC in range(contr_out):
+            plot_3D_functions(final_dir_plots, parameters, f'Control function {iC}', 
+                              f'$u_{iC}$', u_learn[iC],
+                              gamma_overbar)
 
-        elif parameters['n_input'] ==3:
-
-            for iC in range(contr_out):
-                # retrieving control variables
-        
-                plot_3D.plot(u_learn[iC], parameters['n_points_3D'], gamma_overbar, 
-                             f'Control function {iC}', False,
-                             final_dir_u, parameters['dpi_'], Plot3D)   #locals()[str_u]
-
-        else:
-            raise ValueError(f'Not implemented plotting of control function.')
-
-            
 
     if parameters['plot_dataset']:
     

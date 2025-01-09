@@ -44,17 +44,16 @@ The architecture is summarised as:
 More in detail, the *library call graph* is illustrated as:  
 <img src="https://github.com/grande-dev/Augmented-Neural-Lyapunov-Control/blob/master/ANLC_v2/documentation/images/call_graph.png" width=100% height=100%>  
   
+
 ## Framework limitations
-1. The results presented in [1] cover 2- and 3-dimensional (nonlinear) systems. 
-The Falsifier, representing the bottleneck of this procedure, is known to scale poorly as the system dimension increases.  
-The code currently supports:
-- [x] 1-dimensional systems  
+1. The results presented in the paper cover 2- and 3-dimensional (nonlinear) systems. The code currently supports, with minimal changes required:
 - [x] 2-dimensional systems  
 - [x] 3-dimensional systems  
 - [x] 4-dimensional systems  
 - [ ] >= 5-dimensional systems  
 To scale up to higher dimensional systems, additional **Discrete Falsifier** functions need to be developed.
-As reference, use `utilities/Function/AddLieViolationsOrder3_v4`.
+As reference, use `utilities/Function/AddLieViolationsOrder4_v4`.  
+  
   
 ## Reference  
 The article can be accessed open-access on the [IEEE webpage](https://ieeexplore.ieee.org/document/10171339/).

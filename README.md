@@ -33,7 +33,7 @@ With respect to the NLC, the key ANLC upgrades consist of:
 | Automatic synthesis of *linear* control laws |  :white_check_mark:  | :white_check_mark:   | :white_check_mark:   |
 | Formal certification of the returned solution  |  :white_check_mark: | :white_check_mark:   | :white_check_mark:   |
 | Automatic synthesis of *nonlinear* control laws |  :x:  | :white_check_mark:   | :white_check_mark:   |
-| Control laws synthesise without requiring initialisation  |  :x:  | :white_check_mark:   | :white_check_mark:   |
+| Control laws synthesised without requiring initialisation  |  :x:  | :white_check_mark:   | :white_check_mark:   |
 | Stabilise generic equilibria (not necessarily the origin)  |  :x:  | :x:   | :white_check_mark:   |
 | Control law optionally including input saturation  |  :x:  | :x:   | :white_check_mark:   |
   
@@ -68,14 +68,24 @@ CLF evolution |  Lie derivative function evolution
   
 ## Installation  
 Instructions on installation are available within the ![INSTALLATION](./ANLC_v2/INSTALLATION.md/) file.    
-  
 
+
+## Framework limitations
+1. The code currently supports, with minimal changes required:
+- [x] 2-dimensional systems  
+- [x] 3-dimensional systems  
+- [x] 4-dimensional systems  
+- [ ] >= 5-dimensional systems  
+To scale up to higher dimensional systems, additional **Discrete Falsifier** functions need to be developed.
+As reference, use `utilities/Function/AddLieViolationsOrder4_v4`.  
+  
+  
 ## Code - known issues
 1) The Falsifier module at times gets stuck in the verification stage for longer than the `timeout` value. By default the timeout is set to 180 seconds (check `@timeout(180, use_signals=True)` within the file `utilities/Functions/CheckLyapunov()`). If the verification is taking noticeably long, manually interrupt the process (e.g. press `ctrl+C` on unix): the current run will simply be flagged as unsuccessful due to a Falsifier timeout, and the next training attempt will re-start.  
   
 If you experience unmentioned issues, please contact us directly or open an issue in the repository.  
-
-
+  
+  
 ## What is next?    
 - [ ] We are investigating diverse options to improve the scalability of the framework to higher dimensional systems.   
   

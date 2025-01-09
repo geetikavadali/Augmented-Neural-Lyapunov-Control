@@ -55,6 +55,16 @@ def augm_falsifier(parameters, vars_, model, f_symb,
                                                 V_learn,
                                                 lie_derivative_of_V)
             
+    elif parameters['n_input'] == 4: 
+        x, disc_viol_found = \
+            Functions.AddLieViolationsOrder4_v4(x,
+                                                gamma_overbar,
+                                                parameters['grid_points'],
+                                                parameters['zeta_D'],
+                                                parameters['verbose_info'],
+                                                V_learn,
+                                                lie_derivative_of_V)
+
     else:
         dimension_sys = parameters['n_input']
         logging.error(f'Not implemented Falsifier for system of order {dimension_sys}!')
