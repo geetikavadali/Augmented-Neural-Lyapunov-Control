@@ -29,7 +29,7 @@ import logging
 def Plot3D(X, Y, V, r):
     # Plot 3D Lyapunov functions
     fig = plt.figure()
-    ax = fig.gca(projection='3d')
+    ax = fig.add_subplot(projection='3d') # gee - gca has no argument projection -> add_subplot
 
     # Plot Valid region computed by dReal
     theta = np.linspace(0,2*np.pi,50)
@@ -83,25 +83,25 @@ def init_history_arrays(parameters, max_iters):
     disc_viol_found = np.empty((dim1, parameters['n_input']))
 
     # Assigning vectors values to NaN
-    wc1_hist[:] = np.NaN
+    wc1_hist[:] = np.nan
     # wc2_hist[:] = np.NaN
     # wc3_hist[:] = np.NaN
     # bc1_hist[:] = np.NaN
     # bc2_hist[:] = np.NaN
     # bc3_hist[:] = np.NaN
-    q_hist[:] = np.NaN
-    w1_hist[:] = np.NaN
-    Lyap_risk_ELR_hist[:] = np.NaN
-    Lyap_risk_SLR_hist[:] = np.NaN
-    V_dot_hist[:] = np.NaN
-    V_hist[:] = np.NaN
-    V0_hist[:] = np.NaN
-    V_tuning_hist[:] = np.NaN
+    q_hist[:] = np.nan
+    w1_hist[:] = np.nan
+    Lyap_risk_ELR_hist[:] = np.nan
+    Lyap_risk_SLR_hist[:] = np.nan
+    V_dot_hist[:] = np.nan
+    V_hist[:] = np.nan
+    V0_hist[:] = np.nan
+    V_tuning_hist[:] = np.nan
     #Vdot_tuning_hist[:] = np.NaN
-    ce_found[:] = np.NaN
-    learning_rate_history[:] = np.NaN
-    learning_rate_c_history[:] = np.NaN
-    disc_viol_found[:] = np.NaN
+    ce_found[:] = np.nan
+    learning_rate_history[:] = np.nan
+    learning_rate_c_history[:] = np.nan
+    disc_viol_found[:] = np.nan
 
     start = timeit.default_timer()
     t_falsifier = 0.
