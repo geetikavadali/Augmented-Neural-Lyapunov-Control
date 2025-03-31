@@ -24,6 +24,7 @@ from utilities.falsifier import augm_falsifier
 from utilities.utils_processing import postprocessing, init_history_arrays, save_cost_funct, save_lr_values
 from utilities.nn import optimizer_setup
 from utilities.sanity_checks import initial_checks, check_ANN_model
+from utilities.standalone_controller import extract_controller_from_model
 import logging
 
 ##############################################################################
@@ -338,7 +339,14 @@ def cegis(parameters, seed_,
                  'V_learn': V_learn,
                  'lie_derivative_of_V': lie_derivative_of_V,
                  'model': model}
+                    
+    if found_lyap_f:
+              state_dim = parameters['n_input'] # state dimension
+              control_dim = parameters['size_ctrl_layers'][-1] # control output dimension
 
+              # create and add standalone controller to exit_info
+              standalone_controller = extract_controller_from_model(model, state_dim, control_dim)
+              exit_info['standalone_controller'] = standalone_controller
 
     return parameters, exit_info
 
