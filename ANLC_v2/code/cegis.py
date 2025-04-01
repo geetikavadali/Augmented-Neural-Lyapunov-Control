@@ -352,6 +352,13 @@ def cegis(parameters, seed_,
               for i, layer in enumerate(model.ctrl_layers):
                       exit_info['controller_weights'].append(standalone_controller.ctrl_layers[i].weight.data)
                       exit_info['controller_biases'].append(standalone_controller.ctrl_layers[i].bias.data)
+              controller_state = {
+                        'weights': [layer.weight.data for layer in standalone_controller.ctrl_layers],
+                        'biases': [layer.bias.data for layer in standalone_controller.ctrl_layers]
+              }
+              torch.save(controller_state, os.path.join(final_dir_run, "controller_weights.pt"))
+    
+    print("exit info about controller: ", exit_info['standalone_controller'])
 
     return parameters, exit_info
 
