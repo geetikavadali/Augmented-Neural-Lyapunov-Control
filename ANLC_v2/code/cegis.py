@@ -347,6 +347,11 @@ def cegis(parameters, seed_,
               # create and add standalone controller to exit_info
               standalone_controller = extract_controller_from_model(model, state_dim, control_dim)
               exit_info['standalone_controller'] = standalone_controller
+              exit_info['controller_weights'] = []
+              exit_info['controller_biases'] = []
+              for i, layer in enumerate(model.ctrl_layers):
+                      exit_info['controller_weights'].append(standalone_controller.ctrl_layers[i].weight.data)
+                      exit_info['controller_biases'].append(standalone_controller.ctrl_layers[i].bias.data)
 
     return parameters, exit_info
 
