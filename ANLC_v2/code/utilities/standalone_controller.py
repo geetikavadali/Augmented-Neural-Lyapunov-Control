@@ -6,22 +6,19 @@ class ExtractedController(nn.Module):
                  use_saturation=False, ctrl_sat=1.0, beta_sfpl=1.0):
         super(ExtractedController, self).__init__()
         
-        # Initialize control layers
+        # control layers
         self.ctrl_layers = nn.ModuleList()
         self.ctrl_activs = activations
         
-        # First layer: state_dim to first hidden dimension
         if len(hidden_dims) > 0:
             self.ctrl_layers.append(nn.Linear(state_dim, hidden_dims[0]))
-            
-            # Hidden layers
+
             for i in range(len(hidden_dims)-1):
                 self.ctrl_layers.append(nn.Linear(hidden_dims[i], hidden_dims[i+1]))
                 
-            # Output layer
             self.ctrl_layers.append(nn.Linear(hidden_dims[-1], control_dim))
         else:
-            # Direct mapping if no hidden layers
+            # implementing this currently
             self.ctrl_layers.append(nn.Linear(state_dim, control_dim))
         
         # Saturation parameters
@@ -37,7 +34,7 @@ class ExtractedController(nn.Module):
         for idx in range(len(self.ctrl_layers)):
             uhat = self.ctrl_layers[idx](u)
             # activation
-            if idx < len(self.ctrl_activs):  # Check if activation is specified
+            if idx < len(self.ctrl_activs):
                 if self.ctrl_activs[idx] == 'tanh':
                     u = torch.tanh(uhat)
                 elif self.ctrl_activs[idx] == 'pow2':
@@ -60,9 +57,8 @@ class ExtractedController(nn.Module):
 
 def extract_controller_from_model(full_model, state_dim, control_dim):
     # Create the extracted controller with the same architecture
-    hidden_dims = []
+    hidden_dims = [] # for linear controller
     
-    # Check if the model uses linear controller or layered controller
     if full_model.use_lin_ctr:
         # Extract from linear controller
         controller = ExtractedController(
