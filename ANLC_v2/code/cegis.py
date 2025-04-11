@@ -25,6 +25,7 @@ from utilities.utils_processing import postprocessing, init_history_arrays, save
 from utilities.nn import optimizer_setup
 from utilities.sanity_checks import initial_checks, check_ANN_model
 from utilities.standalone_controller import extract_controller_from_model
+from utilities.lyapunov_control import analyze_trained_model
 import logging
 
 ##############################################################################
@@ -359,6 +360,8 @@ def cegis(parameters, seed_,
               torch.save(controller_state, os.path.join(final_dir_run, "controller_weights.pt"))
     
     print("exit info about controller: ", exit_info['standalone_controller'])
+
+    print(analyze_trained_model(model))
 
     return parameters, exit_info
 
