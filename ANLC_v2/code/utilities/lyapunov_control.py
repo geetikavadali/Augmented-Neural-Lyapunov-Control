@@ -82,10 +82,19 @@ def analyze_trained_model(trained_model):
     print("\nLinear Control Component:")
     print(f"  Input {linear_control.weight.shape[1]}, Output {linear_control.weight.shape[0]}")
     
+    torch.save(lyapunov_branch, "lyapunov_model.pt")
+    torch.save(nonlinear_control_branch, "nonlinear_control_model.pt")
+    lyapunov_state = {
+        'weights': [layer.weight.data for layer in lyapunov_branch],
+        'biases': [layer.bias.data if hasattr(layer, 'bias') and layer.bias is not None else None for layer in lyapunov_branch]
+    }
+    nonlinear_control_state = {
+        'weights': [layer.weight.data for layer in nonlinear_control_branch],
+        'biases': [layer.bias.data if hasattr(layer, 'bias') and layer.bias is not None else None for layer in nonlinear_control_branch]
+    }
+    torch.save(lyapunov_state, "lyapunov_params.pt")
+    torch.save(nonlinear_control_state, "nlcontrol_params.pt")
     # Return the extracted components for further analysis
-    torch.save(lyapunov_branch, os.path.join(final_dir_run, "lyapunov_weights.pt"))
-    torch.save(nonlinear_control_branch, os.path.join(final_dir_run, "nonlinear_control_weights.pt"))
-  
     return {
         "lyapunov_branch": lyapunov_branch,
         "nonlinear_control_branch": nonlinear_control_branch,
